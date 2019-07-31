@@ -7,8 +7,8 @@
  ## 如何使用
 
 ```
-import Button from 'bee-button';
-import 'bee-button/build/Button.css';
+import NcToast from 'nc-toast';
+import 'nc-toast/build/NcToast.css';
 
 ```
 
