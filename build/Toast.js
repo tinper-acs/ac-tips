@@ -73,19 +73,26 @@ var Toast = function (_Component) {
     }
 
     Toast.prototype.componentDidMount = function componentDidMount() {
-        // let { duration, destory, type, id } = this.props;
-        // if(duration){
-        //     this.timer&&clearTimeout(this.timer)
-        //     if(type=='success'||type=='warning'){
-        //         this.timer=setTimeout(()=>{
-        //             destory(id);
-        //         },duration)
-        //     }else{
-        //         this.timer=setTimeout(()=>{
-        //             this.hide()
-        //         },duration)
-        //     }
-        // }
+        var _this2 = this;
+
+        var _props = this.props,
+            duration = _props.duration,
+            destory = _props.destory,
+            type = _props.type,
+            id = _props.id;
+
+        if (duration) {
+            this.timer && clearTimeout(this.timer);
+            if (type == 'success' || type == 'warning') {
+                this.timer = setTimeout(function () {
+                    destory(id);
+                }, duration);
+            } else {
+                this.timer = setTimeout(function () {
+                    _this2.hide();
+                }, duration);
+            }
+        }
     };
 
     Toast.prototype.render = function render() {
@@ -94,12 +101,12 @@ var Toast = function (_Component) {
             error: 'uf-close-c',
             success: 'uf-correct'
         };
-        var _props = this.props,
-            clsfix = _props.clsfix,
-            content = _props.content,
-            type = _props.type,
-            destory = _props.destory,
-            id = _props.id;
+        var _props2 = this.props,
+            clsfix = _props2.clsfix,
+            content = _props2.content,
+            type = _props2.type,
+            destory = _props2.destory,
+            id = _props2.id;
         var hide = this.state.hide;
 
         return _react2["default"].createElement(

@@ -23,19 +23,19 @@ class Toast extends Component {
         }
     }
     componentDidMount(){
-        // let { duration, destory, type, id } = this.props;
-        // if(duration){
-        //     this.timer&&clearTimeout(this.timer)
-        //     if(type=='success'||type=='warning'){
-        //         this.timer=setTimeout(()=>{
-        //             destory(id);
-        //         },duration)
-        //     }else{
-        //         this.timer=setTimeout(()=>{
-        //             this.hide()
-        //         },duration)
-        //     }
-        // }
+        let { duration, destory, type, id } = this.props;
+        if(duration){
+            this.timer&&clearTimeout(this.timer)
+            if(type=='success'||type=='warning'){
+                this.timer=setTimeout(()=>{
+                    destory(id);
+                },duration)
+            }else{
+                this.timer=setTimeout(()=>{
+                    this.hide()
+                },duration)
+            }
+        }
     }
     hide=()=>{
         this.setState({

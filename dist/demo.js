@@ -76,7 +76,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var Demo1 = __webpack_require__(268);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 这是标题", "code": "/**\n*\n* @title 这是标题\n* @description 这是描述\n*\n*/\nimport React, { Component } from 'react';\nimport { Button } from 'tinper-bee';\nimport NcToast from \"tinper-bee/lib/src\";;\n\n\n\nclass Demo1 extends Component {\n\n    success=()=>{\n        NcToast.create({\n            type:'success',\n            content:\"success\"\n        })\n    }\n    error=()=>{\n        NcToast.create({\n            type:'error',\n            content:\"error\"\n        })\n    }\n    warning=()=>{\n        NcToast.create({\n            type:'warning',\n            content:\"warning\"\n        })\n    }\n    destoryAll=()=>{\n        NcToast.destoryAll();\n    }\n\n    render () {\n        return (\n            <div>\n                <Button\n                    colors=\"success\"\n                    onClick={this.success}>\n                    success\n                </Button>\n                <Button\n                    colors=\"danger\"\n                    onClick={this.error}>\n                    error\n                </Button>\n                <Button\n                    colors=\"warning\"\n                    onClick={this.warning}>\n                    warning\n                </Button>\n                <Button\n                    onClick={this.destoryAll}>\n                    destoryAll\n                </Button>\n            </div>\n        )\n    }\n}\n", "desc": " 这是描述" }];
+	var Demo1 = __webpack_require__(268);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 这是标题", "code": "/**\n*\n* @title 这是标题\n* @description 这是描述\n*\n*/\nimport React, { Component } from 'react';\nimport { Button } from 'tinper-bee';\nimport NcToast from \"tinper-bee/lib/src\";;\n\n\nlet count = 1;\nclass Demo1 extends Component {\n\n    success=()=>{\n        NcToast.create({\n            type:'success',\n            content:\"success\"\n        })\n    }\n    error=()=>{\n        NcToast.create({\n            type:'error',\n            content:\"error\"+count.toString()\n        })\n        count++;\n    }\n    warning=()=>{\n        NcToast.create({\n            type:'warning',\n            content:\"warning\"\n        })\n    }\n    destoryAll=()=>{\n        NcToast.destoryAll();\n    }\n\n    render () {\n        return (\n            <div>\n                <Button\n                    colors=\"success\"\n                    onClick={this.success}>\n                    success\n                </Button>\n                <Button\n                    colors=\"danger\"\n                    onClick={this.error}>\n                    error\n                </Button>\n                <Button\n                    colors=\"warning\"\n                    onClick={this.warning}>\n                    warning\n                </Button>\n                <Button\n                    onClick={this.destoryAll}>\n                    destoryAll\n                </Button>\n            </div>\n        )\n    }\n}\n", "desc": " 这是描述" }];
 	
 	var Demo = function (_Component) {
 	    _inherits(Demo, _Component);
@@ -36887,6 +36887,8 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
 	
 	
+	var count = 1;
+	
 	var Demo1 = function (_Component) {
 	    _inherits(Demo1, _Component);
 	
@@ -36907,8 +36909,9 @@
 	        }, _this.error = function () {
 	            _src2['default'].create({
 	                type: 'error',
-	                content: "error"
+	                content: "error" + count.toString()
 	            });
+	            count++;
 	        }, _this.warning = function () {
 	            _src2['default'].create({
 	                type: 'warning',
@@ -37006,26 +37009,37 @@
 	
 	var NcToast = {
 	    toastList: [],
+	    top: 50,
 	    hide: function hide() {},
 	    destory: function destory(id) {
+	        var index = NcToast.toastList.indexOf(id);
 	        var toast = document.getElementById(id);
 	        toast.style.right = 0;
 	        _reactDom2['default'].unmountComponentAtNode(toast);
 	        document.body.removeChild(toast);
-	        NcToast.toastList.splice(NcToast.toastList.indexOf(id), 1);
+	        NcToast.toastList.splice(index, 1);
+	        for (var i = index; i < NcToast.toastList.length; i++) {
+	            var item = document.getElementById(NcToast.toastList[i]);
+	            item.style.top = i * 50 + NcToast.top + 'px';
+	        }
 	    },
 	    create: function create(options) {
-	        var type = options.type || 'success';
+	        var _options$type = options.type,
+	            type = _options$type === undefined ? 'success' : _options$type,
+	            _options$top = options.top,
+	            top = _options$top === undefined ? 50 : _options$top;
+	
+	        NcToast.top = top;
 	        var id = (0, _uuid2['default'])();
 	        NcToast.toastList.push(id);
 	        var toast = document.createElement('div');
 	        toast.className = 'nc-toast-out ' + type;
 	        toast.id = id;
-	        toast.style.top = NcToast.toastList.length * 50 + 'px';
+	        toast.style.top = NcToast.toastList.length * 50 + top + 'px';
 	        document.body.appendChild(toast);
 	        _reactDom2['default'].render(React.createElement(_Toast2['default'], _extends({}, options, { destory: NcToast.destory, id: id })), toast);
 	        setTimeout(function () {
-	            toast.style.right = 0;
+	            toast.style.right = '5px';
 	        }, 0);
 	    },
 	    destoryAll: function destoryAll() {
@@ -37121,19 +37135,26 @@
 	    }
 	
 	    Toast.prototype.componentDidMount = function componentDidMount() {
-	        // let { duration, destory, type, id } = this.props;
-	        // if(duration){
-	        //     this.timer&&clearTimeout(this.timer)
-	        //     if(type=='success'||type=='warning'){
-	        //         this.timer=setTimeout(()=>{
-	        //             destory(id);
-	        //         },duration)
-	        //     }else{
-	        //         this.timer=setTimeout(()=>{
-	        //             this.hide()
-	        //         },duration)
-	        //     }
-	        // }
+	        var _this2 = this;
+	
+	        var _props = this.props,
+	            duration = _props.duration,
+	            destory = _props.destory,
+	            type = _props.type,
+	            id = _props.id;
+	
+	        if (duration) {
+	            this.timer && clearTimeout(this.timer);
+	            if (type == 'success' || type == 'warning') {
+	                this.timer = setTimeout(function () {
+	                    destory(id);
+	                }, duration);
+	            } else {
+	                this.timer = setTimeout(function () {
+	                    _this2.hide();
+	                }, duration);
+	            }
+	        }
 	    };
 	
 	    Toast.prototype.render = function render() {
@@ -37142,12 +37163,12 @@
 	            error: 'uf-close-c',
 	            success: 'uf-correct'
 	        };
-	        var _props = this.props,
-	            clsfix = _props.clsfix,
-	            content = _props.content,
-	            type = _props.type,
-	            destory = _props.destory,
-	            id = _props.id;
+	        var _props2 = this.props,
+	            clsfix = _props2.clsfix,
+	            content = _props2.content,
+	            type = _props2.type,
+	            destory = _props2.destory,
+	            id = _props2.id;
 	        var hide = this.state.hide;
 	
 	        return _react2['default'].createElement(

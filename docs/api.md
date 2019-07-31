@@ -1,4 +1,4 @@
-# NcToast
+# 消息提示 NcToast
 
 
  ## 何时使用
@@ -6,13 +6,29 @@
 
  ## 如何使用
 
+```
+import Button from 'bee-button';
+import 'bee-button/build/Button.css';
+
+```
 
  ## 代码演示
 
- ## API
+## API
 
- |参数|说明|类型|默认值|
+### NcToast.create
+
+|参数|说明|类型|默认值|
 |:---|:-----|:----|:------|
+|type|提示类型 `success`、`error`、`warning`|string|`success`|
+|content|提示内容|node|-|
+|top|到页面顶端的距离|number|50|
+
+
+
+
+
+
 
 
  ## 注意事项

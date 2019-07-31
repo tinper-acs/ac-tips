@@ -22,26 +22,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var NcToast = {
     toastList: [],
+    top: 50,
     hide: function hide() {},
     destory: function destory(id) {
+        var index = NcToast.toastList.indexOf(id);
         var toast = document.getElementById(id);
         toast.style.right = 0;
         _reactDom2["default"].unmountComponentAtNode(toast);
         document.body.removeChild(toast);
-        NcToast.toastList.splice(NcToast.toastList.indexOf(id), 1);
+        NcToast.toastList.splice(index, 1);
+        for (var i = index; i < NcToast.toastList.length; i++) {
+            var item = document.getElementById(NcToast.toastList[i]);
+            item.style.top = i * 50 + NcToast.top + 'px';
+        }
     },
     create: function create(options) {
-        var type = options.type || 'success';
+        var _options$type = options.type,
+            type = _options$type === undefined ? 'success' : _options$type,
+            _options$top = options.top,
+            top = _options$top === undefined ? 50 : _options$top;
+
+        NcToast.top = top;
         var id = (0, _uuid2["default"])();
         NcToast.toastList.push(id);
         var toast = document.createElement('div');
         toast.className = 'nc-toast-out ' + type;
         toast.id = id;
-        toast.style.top = NcToast.toastList.length * 50 + 'px';
+        toast.style.top = NcToast.toastList.length * 50 + top + 'px';
         document.body.appendChild(toast);
         _reactDom2["default"].render(React.createElement(_Toast2["default"], _extends({}, options, { destory: NcToast.destory, id: id })), toast);
         setTimeout(function () {
-            toast.style.right = 0;
+            toast.style.right = '5px';
         }, 0);
     },
     destoryAll: function destoryAll() {

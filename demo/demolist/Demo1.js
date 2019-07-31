@@ -9,7 +9,7 @@ import NcToast from '../../src';
 import Button from 'bee-button'
 
 
-
+let count = 1;
 class Demo1 extends Component {
 
     success=()=>{
@@ -21,8 +21,9 @@ class Demo1 extends Component {
     error=()=>{
         NcToast.create({
             type:'error',
-            content:"error"
+            content:"error"+count.toString()
         })
+        count++;
     }
     warning=()=>{
         NcToast.create({
