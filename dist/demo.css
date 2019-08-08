@@ -11,10 +11,13 @@
   .nc-toast-out .nc-toast-inner {
     min-width: 100px;
     display: inline-block;
-    text-align: center; }
+    text-align: center;
+    padding-right: 10px;
+    font-size: 13px; }
   .nc-toast-out .nc-toast-close {
     cursor: pointer;
-    color: #0073e1; }
+    color: #0073e1;
+    font-size: 13px; }
     .nc-toast-out .nc-toast-close:hover {
       color: #f44336; }
   .nc-toast-out.in {

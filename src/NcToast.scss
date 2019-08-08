@@ -13,10 +13,13 @@
             min-width: 100px;
             display: inline-block;
             text-align: center;
+            padding-right: 10px;
+            font-size: 13px;
         }
         &-close{
             cursor: pointer;
             color: #0073e1;
+            font-size: 13px;
             &:hover{
                 color: #f44336;
             }
