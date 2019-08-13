@@ -1,4 +1,4 @@
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 import {expect} from 'chai';
-import NcToast from '../src/index';
+import AcTips from '../src/index';

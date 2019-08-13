@@ -1,2 +1,2 @@
-import NcToast from './NcToast';
-export default NcToast;
+import AcTips from './AcTips';
+export default AcTips;

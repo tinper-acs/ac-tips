@@ -76,7 +76,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var Demo1 = __webpack_require__(268);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 这是标题", "code": "/**\n*\n* @title 这是标题\n* @description 这是描述\n*\n*/\nimport React, { Component } from 'react';\nimport { Button } from 'tinper-bee';\nimport NcToast from \"tinper-bee/lib/src\";;\n\n\nlet count = 1;\nclass Demo1 extends Component {\n\n    success=()=>{\n        NcToast.create({\n            type:'success',\n            content:\"success\"\n        })\n    }\n    error=()=>{\n        NcToast.create({\n            type:'error',\n            content:\"error\"+count.toString()\n        })\n        count++;\n    }\n    warning=()=>{\n        NcToast.create({\n            type:'warning',\n            content:\"warning\"\n        })\n    }\n    destoryAll=()=>{\n        NcToast.destoryAll();\n    }\n\n    render () {\n        return (\n            <div>\n                <Button\n                    colors=\"success\"\n                    onClick={this.success}>\n                    success\n                </Button>\n                <Button\n                    colors=\"danger\"\n                    onClick={this.error}>\n                    error\n                </Button>\n                <Button\n                    colors=\"warning\"\n                    onClick={this.warning}>\n                    warning\n                </Button>\n                <Button\n                    onClick={this.destoryAll}>\n                    destoryAll\n                </Button>\n            </div>\n        )\n    }\n}\n", "desc": " 这是描述" }];
+	var Demo1 = __webpack_require__(268);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 基础示例", "code": "/**\n*\n* @title 基础示例\n* @description 基础示例\n*\n*/\nimport React, { Component } from 'react';\nimport { Button } from 'tinper-bee';\nimport AcTips from \"ac-tips\";\n\n\nlet count = 1;\nclass Demo1 extends Component {\n\n    success=()=>{\n        AcTips.create({\n            type:'success',\n            content:\"success\"\n        })\n    }\n    error=()=>{\n        AcTips.create({\n            type:'error',\n            content:\"error\"+count.toString()\n        })\n        count++;\n    }\n    warning=()=>{\n        AcTips.create({\n            type:'warning',\n            content:\"warning\"\n        })\n    }\n    destoryAll=()=>{\n        AcTips.destoryAll();\n    }\n\n    render () {\n        return (\n            <div>\n                <Button\n                    colors=\"success\"\n                    onClick={this.success}>\n                    success\n                </Button>\n                <Button\n                    colors=\"danger\"\n                    onClick={this.error}>\n                    error\n                </Button>\n                <Button\n                    colors=\"warning\"\n                    onClick={this.warning}>\n                    warning\n                </Button>\n                <Button\n                    onClick={this.destoryAll}>\n                    destoryAll\n                </Button>\n            </div>\n        )\n    }\n}\n", "desc": " 基础示例" }];
 	
 	var Demo = function (_Component) {
 	    _inherits(Demo, _Component);
@@ -5828,6 +5828,7 @@
 	exports.alignElement = alignElement;
 	exports.alignPoint = alignPoint;
 	exports.default = alignElement;
+	//# sourceMappingURL=index.js.map
 
 
 /***/ }),
@@ -6201,7 +6202,7 @@
 	        var onClose = obj.onClose || noop;
 	        var position = obj.position || "top";
 	        var style = obj.style || {};
-	        var showIcon = obj.showIcon || true;
+	        var showIcon = obj.hasOwnProperty('showIcon') ? obj.showIcon : true;
 	        return notice(content, duration, color, onClose, position, style, obj.keyboard, obj.onEscapeKeyUp, showIcon);
 	    },
 	    config: function config(options) {
@@ -14119,6 +14120,10 @@
 	
 	var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 	
+	var _scrollTop = __webpack_require__(110);
+	
+	var _scrollTop2 = _interopRequireDefault(_scrollTop);
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -14285,14 +14290,27 @@
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
 	
+	    _this.clearCenteredCls = function () {
+	      var centered = _this.state.centered;
+	
+	      if (!centered) {
+	        return;
+	      }
+	      _this.offsetTop = _this.getOffsetTop();
+	      _this.setState({
+	        centered: false
+	      });
+	    };
+	
+	    _this.state = {
+	      style: {},
+	      centered: props.centered
+	    };
+	    _this.offsetTop = 0;
 	    _this.handleEntering = _this.handleEntering.bind(_this);
 	    _this.handleExited = _this.handleExited.bind(_this);
 	    _this.handleWindowResize = _this.handleWindowResize.bind(_this);
 	    _this.handleDialogClick = _this.handleDialogClick.bind(_this);
-	
-	    _this.state = {
-	      style: {}
-	    };
 	    return _this;
 	  }
 	
@@ -14354,6 +14372,16 @@
 	      }
 	    });
 	  };
+	  //ResizeStart 时，若模态框设置了 `centered` ，需要把居中属性移除，并通过 offsetTop 制造垂直居中的假象
+	  //fixbug: Resize 和 centered 一起使用时，拖拽交互不正确
+	
+	
+	  //计算 ModalDialog 的 offsetTop
+	  Modal.prototype.getOffsetTop = function getOffsetTop() {
+	    var modalDialog = document.getElementsByClassName("u-modal-dialog") && document.getElementsByClassName("u-modal-dialog")[0];
+	    var topPos = modalDialog && modalDialog.offsetTop;
+	    return topPos;
+	  };
 	
 	  Modal.prototype.render = function render() {
 	    var _this2 = this;
@@ -14378,8 +14406,14 @@
 	        draggable = _props.draggable,
 	        resizeClassName = _props.resizeClassName,
 	        bounds = _props.bounds,
-	        centered = _props.centered,
-	        props = _objectWithoutProperties(_props, ['backdrop', 'backdropClosable', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited', 'backdropClassName', 'containerClassName', 'draggable', 'resizeClassName', 'bounds', 'centered']);
+	        container = _props.container,
+	        props = _objectWithoutProperties(_props, ['backdrop', 'backdropClosable', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited', 'backdropClassName', 'containerClassName', 'draggable', 'resizeClassName', 'bounds', 'container']);
+	
+	    var centered = this.state.centered;
+	
+	    var dialogMarginTop = 30;
+	    //ResizeStart 时，计算 ModalDialog 的 offsetTop
+	    var topPosStyle = this.offsetTop > 0 ? { top: this.offsetTop - dialogMarginTop } : null;
 	
 	    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
 	        _splitComponent2 = _slicedToArray(_splitComponent, 2),
@@ -14395,7 +14429,7 @@
 	    }
 	    if (Number(width)) width += 'px';
 	
-	    var styleRes = _extends({}, this.state.style, style);
+	    var styleRes = _extends({}, this.state.style, style, topPosStyle);
 	    if (width) {
 	      _extends(styleRes, { width: width });
 	    }
@@ -14424,7 +14458,8 @@
 	          size: size,
 	          draggable: draggable,
 	          bounds: bounds,
-	          resizeClassName: resizeClassName
+	          resizeClassName: resizeClassName,
+	          clearCenteredCls: this.clearCenteredCls
 	        }),
 	        children
 	      )
@@ -16040,6 +16075,7 @@
 	      var onResizeStart = _this.props.onResizeStart;
 	
 	      typeof onResizeStart === "function" && onResizeStart(e, dir, elementRef);
+	      _this.props.clearCenteredCls && _this.props.clearCenteredCls();
 	    }, _this.onResize = function (e, direction, elementRef, delta) {
 	      var onResize = _this.props.onResize;
 	      var original = _this.state.original;
@@ -25434,7 +25470,7 @@
 /* 214 */
 /***/ (function(module, exports) {
 
-	/** @license React v16.8.6
+	/** @license React v16.9.0
 	 * react-is.production.min.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -25444,18 +25480,18 @@
 	 */
 	
 	'use strict';Object.defineProperty(exports,"__esModule",{value:!0});
-	var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.memo"):
-	60115,r=b?Symbol.for("react.lazy"):60116;function t(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case h:return a;default:return u}}case r:case q:case d:return u}}}function v(a){return t(a)===m}exports.typeOf=t;exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;
-	exports.Fragment=e;exports.Lazy=r;exports.Memo=q;exports.Portal=d;exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||"object"===typeof a&&null!==a&&(a.$$typeof===r||a.$$typeof===q||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n)};exports.isAsyncMode=function(a){return v(a)||t(a)===l};exports.isConcurrentMode=v;exports.isContextConsumer=function(a){return t(a)===k};
-	exports.isContextProvider=function(a){return t(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return t(a)===n};exports.isFragment=function(a){return t(a)===e};exports.isLazy=function(a){return t(a)===r};exports.isMemo=function(a){return t(a)===q};exports.isPortal=function(a){return t(a)===d};exports.isProfiler=function(a){return t(a)===g};exports.isStrictMode=function(a){return t(a)===f};
-	exports.isSuspense=function(a){return t(a)===p};
+	var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.suspense_list"):
+	60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.fundamental"):60117,w=b?Symbol.for("react.responder"):60118;function x(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case h:return a;default:return u}}case t:case r:case d:return u}}}function y(a){return x(a)===m}exports.typeOf=x;exports.AsyncMode=l;
+	exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;exports.Fragment=e;exports.Lazy=t;exports.Memo=r;exports.Portal=d;exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;
+	exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===v||a.$$typeof===w)};exports.isAsyncMode=function(a){return y(a)||x(a)===l};exports.isConcurrentMode=y;exports.isContextConsumer=function(a){return x(a)===k};exports.isContextProvider=function(a){return x(a)===h};
+	exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return x(a)===n};exports.isFragment=function(a){return x(a)===e};exports.isLazy=function(a){return x(a)===t};exports.isMemo=function(a){return x(a)===r};exports.isPortal=function(a){return x(a)===d};exports.isProfiler=function(a){return x(a)===g};exports.isStrictMode=function(a){return x(a)===f};exports.isSuspense=function(a){return x(a)===p};
 
 
 /***/ }),
 /* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.6
+	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.9.0
 	 * react-is.development.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -25485,17 +25521,22 @@
 	var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
 	var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
 	var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace;
+	// TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+	// (unstable) APIs that have been removed. Can we remove the symbols?
 	var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
 	var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
 	var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
 	var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+	var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
 	var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
 	var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+	var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+	var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
 	
 	function isValidElementType(type) {
 	  return typeof type === 'string' || typeof type === 'function' ||
 	  // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-	  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
+	  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE);
 	}
 	
 	/**
@@ -29947,18 +29988,15 @@
 		      // Can only determine if SVG after mounting
 		      isElementSVG: false
 		    };
+	
+		    if (props.position && !(props.onDrag || props.onStop)) {
+		      // eslint-disable-next-line no-console
+		      console.warn('A `position` was applied to this <Draggable>, without drag handlers. This will make this ' + 'component effectively undraggable. Please attach `onDrag` or `onStop` handlers so you can adjust the ' + '`position` of this element.');
+		    }
 		    return _this;
 		  }
 	
 		  createClass(Draggable, [{
-		    key: 'componentWillMount',
-		    value: function componentWillMount() {
-		      if (this.props.position && !(this.props.onDrag || this.props.onStop)) {
-		        // eslint-disable-next-line
-		        console.warn('A `position` was applied to this <Draggable>, without drag handlers. This will make this ' + 'component effectively undraggable. Please attach `onDrag` or `onStop` handlers so you can adjust the ' + '`position` of this element.');
-		      }
-		    }
-		  }, {
 		    key: 'componentDidMount',
 		    value: function componentDidMount() {
 		      // Check to see if the element passed is an instanceof SVGElement
@@ -36612,14 +36650,16 @@
 	    onChange: _propTypes2["default"].func,
 	    onBlur: _propTypes2["default"].func,
 	    showClose: _propTypes2["default"].bool,
-	    focusSelect: _propTypes2["default"].bool
+	    focusSelect: _propTypes2["default"].bool,
+	    debounceDelay: _propTypes2["default"].number
 	};
 	
 	var defaultProps = {
 	    componentClass: 'input',
 	    clsPrefix: 'u-form-control',
 	    type: 'text',
-	    size: 'md'
+	    size: 'md',
+	    debounceDelay: 0
 	};
 	
 	var FormControl = function (_React$Component) {
@@ -36644,6 +36684,10 @@
 	        };
 	
 	        _this.handleChange = function (e) {
+	            var now = new Date().getTime();
+	            if (now - _this.lastScrollCall < _this.props.debounceDelay) return;
+	            _this.lastScrollCall = now;
+	
 	            var onChange = _this.props.onChange;
 	
 	            var value = _this.input.value;
@@ -36881,8 +36925,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } /**
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * @title 这是标题
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * @description 这是描述
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * @title 基础示例
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * @description 基础示例
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               *
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
 	
@@ -36972,13 +37016,13 @@
 	  value: true
 	});
 	
-	var _NcToast = __webpack_require__(270);
+	var _AcTips = __webpack_require__(270);
 	
-	var _NcToast2 = _interopRequireDefault(_NcToast);
+	var _AcTips2 = _interopRequireDefault(_AcTips);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	exports['default'] = _NcToast2['default'];
+	exports['default'] = _AcTips2['default'];
 	module.exports = exports['default'];
 
 /***/ }),
@@ -36993,9 +37037,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _Toast = __webpack_require__(271);
+	var _Tips = __webpack_require__(271);
 	
-	var _Toast2 = _interopRequireDefault(_Toast);
+	var _Tips2 = _interopRequireDefault(_Tips);
 	
 	var _reactDom = __webpack_require__(2);
 	
@@ -37007,20 +37051,22 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var NcToast = {
+	var AcTips = {
 	    toastList: [],
 	    top: 50,
 	    hide: function hide() {},
 	    destory: function destory(id) {
-	        var index = NcToast.toastList.indexOf(id);
+	        var index = AcTips.toastList.indexOf(id);
 	        var toast = document.getElementById(id);
-	        toast.style.right = 0;
-	        _reactDom2['default'].unmountComponentAtNode(toast);
-	        document.body.removeChild(toast);
-	        NcToast.toastList.splice(index, 1);
-	        for (var i = index; i < NcToast.toastList.length; i++) {
-	            var item = document.getElementById(NcToast.toastList[i]);
-	            item.style.top = i * 50 + NcToast.top + 'px';
+	        if (toast) {
+	            toast.style.right = 0;
+	            _reactDom2['default'].unmountComponentAtNode(toast);
+	            document.body.removeChild(toast);
+	            AcTips.toastList.splice(index, 1);
+	            for (var i = index; i < AcTips.toastList.length; i++) {
+	                var item = document.getElementById(AcTips.toastList[i]);
+	                item.style.top = i * 50 + AcTips.top + 'px';
+	            }
 	        }
 	    },
 	    create: function create(options) {
@@ -37029,31 +37075,31 @@
 	            _options$top = options.top,
 	            top = _options$top === undefined ? 50 : _options$top;
 	
-	        NcToast.top = top;
+	        AcTips.top = top;
 	        var id = (0, _uuid2['default'])();
-	        NcToast.toastList.push(id);
+	        AcTips.toastList.push(id);
 	        var toast = document.createElement('div');
-	        toast.className = 'nc-toast-out ' + type;
+	        toast.className = 'ac-tips-out ' + type;
 	        toast.id = id;
-	        toast.style.top = NcToast.toastList.length * 50 + top + 'px';
+	        toast.style.top = AcTips.toastList.length * 50 + top + 'px';
 	        document.body.appendChild(toast);
-	        _reactDom2['default'].render(React.createElement(_Toast2['default'], _extends({}, options, { destory: NcToast.destory, id: id })), toast);
+	        _reactDom2['default'].render(React.createElement(Toast, _extends({}, options, { destory: AcTips.destory, id: id })), toast);
 	        setTimeout(function () {
 	            toast.style.right = '5px';
 	        }, 0);
 	    },
 	    destoryAll: function destoryAll() {
-	        NcToast.toastList.forEach(function (id) {
+	        AcTips.toastList.forEach(function (id) {
 	            var toast = document.getElementById(id);
 	            toast.style.right = 0;
 	            _reactDom2['default'].unmountComponentAtNode(toast);
 	            document.body.removeChild(toast);
 	        });
-	        NcToast.toastList = [];
+	        AcTips.toastList = [];
 	    }
 	};
 	
-	exports['default'] = NcToast;
+	exports['default'] = AcTips;
 	module.exports = exports['default'];
 
 /***/ }),
@@ -37095,7 +37141,7 @@
 	    type: _propTypes2['default'].oneOfType[('success', 'error', 'warning')]
 	};
 	var defaultProps = {
-	    clsfix: 'nc-toast',
+	    clsfix: 'ac-tips',
 	    content: '',
 	    type: 'success',
 	    duration: 5000

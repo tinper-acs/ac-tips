@@ -9,7 +9,7 @@ const propTypes = {
     type:PropTypes.oneOfType['success','error','warning']
 };
 const defaultProps = {
-    clsfix:'nc-toast',
+    clsfix:'ac-tips',
     content:'',
     type:'success',
     duration:5000

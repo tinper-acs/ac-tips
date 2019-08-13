@@ -33,7 +33,7 @@ var propTypes = {
     type: _propTypes2["default"].oneOfType[('success', 'error', 'warning')]
 };
 var defaultProps = {
-    clsfix: 'nc-toast',
+    clsfix: 'ac-tips',
     content: '',
     type: 'success',
     duration: 5000

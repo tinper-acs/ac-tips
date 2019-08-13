@@ -1,22 +1,22 @@
 {
- "name": "nc-toast",
- "version": "0.0.3",
- "description": "NcToast ui component for react",
+ "name": "ac-tips",
+ "version": "0.0.4",
+ "description": "AcTips ui component for react",
  "keywords": [
   "react",
   "react-component",
-  "nc-toast",
+  "ac-tips",
   "iuap-design",
   "tinper-bee",
-  "NcToast"
+  "AcTips"
  ],
  "engines": {
   "node": ">=4.0.0"
  },
- "homepage": "https://github.com/tinper-acs/nc-toast.git",
+ "homepage": "https://github.com/tinper-acs/ac-tips.git",
  "author": "Yonyou FED",
- "repository": "http://github.com/tinper-bee/nc-toast",
- "bugs": "https://github.com/tinper-acs/nc-toast.git/issues",
+ "repository": "http://github.com/tinper-bee/ac-tips",
+ "bugs": "https://github.com/tinper-acs/ac-tips.git/issues",
  "license": "MIT",
  "main": "./build/index.js",
  "config": {

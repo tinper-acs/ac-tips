@@ -1,11 +1,11 @@
 /**
 *
-* @title 这是标题
-* @description 这是描述
+* @title 基础示例
+* @description 基础示例
 *
 */
 import React, { Component } from 'react';
-import NcToast from '../../src';
+import AcTips from '../../src';
 import Button from 'bee-button'
 
 
@@ -13,26 +13,26 @@ let count = 1;
 class Demo1 extends Component {
 
     success=()=>{
-        NcToast.create({
+        AcTips.create({
             type:'success',
             content:"success"
         })
     }
     error=()=>{
-        NcToast.create({
+        AcTips.create({
             type:'error',
             content:"error"+count.toString()
         })
         count++;
     }
     warning=()=>{
-        NcToast.create({
+        AcTips.create({
             type:'warning',
             content:"warning"
         })
     }
     destoryAll=()=>{
-        NcToast.destoryAll();
+        AcTips.destoryAll();
     }
 
     render () {

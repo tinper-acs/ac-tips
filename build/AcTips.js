@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _Toast = require('./Toast');
+var _Tips = require('./Tips');
 
-var _Toast2 = _interopRequireDefault(_Toast);
+var _Tips2 = _interopRequireDefault(_Tips);
 
 var _reactDom = require('react-dom');
 
@@ -20,20 +20,22 @@ var _uuid2 = _interopRequireDefault(_uuid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var NcToast = {
+var AcTips = {
     toastList: [],
     top: 50,
     hide: function hide() {},
     destory: function destory(id) {
-        var index = NcToast.toastList.indexOf(id);
+        var index = AcTips.toastList.indexOf(id);
         var toast = document.getElementById(id);
-        toast.style.right = 0;
-        _reactDom2["default"].unmountComponentAtNode(toast);
-        document.body.removeChild(toast);
-        NcToast.toastList.splice(index, 1);
-        for (var i = index; i < NcToast.toastList.length; i++) {
-            var item = document.getElementById(NcToast.toastList[i]);
-            item.style.top = i * 50 + NcToast.top + 'px';
+        if (toast) {
+            toast.style.right = 0;
+            _reactDom2["default"].unmountComponentAtNode(toast);
+            document.body.removeChild(toast);
+            AcTips.toastList.splice(index, 1);
+            for (var i = index; i < AcTips.toastList.length; i++) {
+                var item = document.getElementById(AcTips.toastList[i]);
+                item.style.top = i * 50 + AcTips.top + 'px';
+            }
         }
     },
     create: function create(options) {
@@ -42,29 +44,29 @@ var NcToast = {
             _options$top = options.top,
             top = _options$top === undefined ? 50 : _options$top;
 
-        NcToast.top = top;
+        AcTips.top = top;
         var id = (0, _uuid2["default"])();
-        NcToast.toastList.push(id);
+        AcTips.toastList.push(id);
         var toast = document.createElement('div');
-        toast.className = 'nc-toast-out ' + type;
+        toast.className = 'ac-tips-out ' + type;
         toast.id = id;
-        toast.style.top = NcToast.toastList.length * 50 + top + 'px';
+        toast.style.top = AcTips.toastList.length * 50 + top + 'px';
         document.body.appendChild(toast);
-        _reactDom2["default"].render(React.createElement(_Toast2["default"], _extends({}, options, { destory: NcToast.destory, id: id })), toast);
+        _reactDom2["default"].render(React.createElement(Toast, _extends({}, options, { destory: AcTips.destory, id: id })), toast);
         setTimeout(function () {
             toast.style.right = '5px';
         }, 0);
     },
     destoryAll: function destoryAll() {
-        NcToast.toastList.forEach(function (id) {
+        AcTips.toastList.forEach(function (id) {
             var toast = document.getElementById(id);
             toast.style.right = 0;
             _reactDom2["default"].unmountComponentAtNode(toast);
             document.body.removeChild(toast);
         });
-        NcToast.toastList = [];
+        AcTips.toastList = [];
     }
 };
 
-exports["default"] = NcToast;
+exports["default"] = AcTips;
 module.exports = exports['default'];
