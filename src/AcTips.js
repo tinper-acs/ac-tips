@@ -33,7 +33,7 @@ let AcTips = {
         toast.id=id;
         toast.style.top=AcTips.toastList.length*50+top+'px'
         document.body.appendChild(toast);
-        ReactDOM.render(<Toast {...options} destory={AcTips.destory} id={id} />,toast);
+        ReactDOM.render(<Tips {...options} destory={AcTips.destory} id={id} />,toast);
         setTimeout(()=>{
             toast.style.right='5px';
         },0)

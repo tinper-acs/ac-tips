@@ -52,7 +52,7 @@ var AcTips = {
         toast.id = id;
         toast.style.top = AcTips.toastList.length * 50 + top + 'px';
         document.body.appendChild(toast);
-        _reactDom2["default"].render(React.createElement(Toast, _extends({}, options, { destory: AcTips.destory, id: id })), toast);
+        _reactDom2["default"].render(React.createElement(_Tips2["default"], _extends({}, options, { destory: AcTips.destory, id: id })), toast);
         setTimeout(function () {
             toast.style.right = '5px';
         }, 0);
