@@ -1,3 +1,13 @@
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/tinper-bee/ac-tips/compare/v0.0.5...v0.0.6) (2019-08-14)
+
+
+### Features
+
+* **ac-tips:** zIndex修改 ([d3c82f0](https://github.com/tinper-bee/ac-tips/commit/d3c82f0))
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/tinper-bee/ac-tips/compare/v0.0.4...v0.0.5) (2019-08-13)
 
