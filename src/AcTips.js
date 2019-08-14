@@ -24,14 +24,15 @@ let AcTips = {
         
     },
     create:(options)=>{
-        let { type ='success', top=50 } = options;
+        let { type ='success', top=50, zIndex } = options;
         AcTips.top = top;
         let id = uuid();
         AcTips.toastList.push(id);
         let toast = document.createElement('div');
         toast.className='ac-tips-out '+type;
         toast.id=id;
-        toast.style.top=AcTips.toastList.length*50+top+'px'
+        toast.style.top=AcTips.toastList.length*50+top+'px';
+        if(zIndex)toast.style['z-index']=zIndex;
         document.body.appendChild(toast);
         ReactDOM.render(<Tips {...options} destory={AcTips.destory} id={id} />,toast);
         setTimeout(()=>{

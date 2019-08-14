@@ -7,7 +7,8 @@
   line-height: 36px;
   padding: 0 15px;
   right: -100%;
-  transition: all .3s; }
+  transition: all .3s;
+  z-index: 9; }
   .ac-tips-out .ac-tips-inner {
     min-width: 100px;
     display: inline-block;

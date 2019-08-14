@@ -8,6 +8,7 @@
     padding: 0 15px;
     right: -100%;
     transition: all .3s;
+    z-index: 9;
     .ac-tips{
         &-inner{
             min-width: 100px;

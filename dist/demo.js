@@ -37073,7 +37073,8 @@
 	        var _options$type = options.type,
 	            type = _options$type === undefined ? 'success' : _options$type,
 	            _options$top = options.top,
-	            top = _options$top === undefined ? 50 : _options$top;
+	            top = _options$top === undefined ? 50 : _options$top,
+	            zIndex = options.zIndex;
 	
 	        AcTips.top = top;
 	        var id = (0, _uuid2['default'])();
@@ -37082,6 +37083,7 @@
 	        toast.className = 'ac-tips-out ' + type;
 	        toast.id = id;
 	        toast.style.top = AcTips.toastList.length * 50 + top + 'px';
+	        if (zIndex) toast.style['z-index'] = zIndex;
 	        document.body.appendChild(toast);
 	        _reactDom2['default'].render(React.createElement(_Tips2['default'], _extends({}, options, { destory: AcTips.destory, id: id })), toast);
 	        setTimeout(function () {

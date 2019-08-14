@@ -24,6 +24,7 @@ import 'ac-tips/build/AcTips.css';
 |content|提示内容|node|-|
 |top|到页面顶端的距离|number|50|
 |duration|显示多久自动隐藏，error不隐藏，单位毫秒|number|5000|
+|zIndex|提示的层级|number|9|
 
 
 
