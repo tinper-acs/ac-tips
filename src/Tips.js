@@ -26,15 +26,15 @@ class Toast extends Component {
         let { duration, destory, type, id } = this.props;
         if(duration){
             this.timer&&clearTimeout(this.timer)
-            if(type=='success'||type=='warning'){
-                this.timer=setTimeout(()=>{
-                    destory(id);
-                },duration)
-            }else{
-                this.timer=setTimeout(()=>{
-                    this.hide()
-                },duration)
-            }
+            // if(type=='success'||type=='warning'){
+            //     this.timer=setTimeout(()=>{
+            //         destory(id);
+            //     },duration)
+            // }else{
+            //     this.timer=setTimeout(()=>{
+            //         this.hide()
+            //     },duration)
+            // }
         }
     }
     hide=()=>{
@@ -72,8 +72,9 @@ class Toast extends Component {
                 }
                 {
                     hide?'':<span className={`${clsfix}-close`} onClick={()=>{destory(id)}}>
-                            关闭
-                        </span>
+                                关闭
+                            </span>
+                    
                 }
             </div>
         )

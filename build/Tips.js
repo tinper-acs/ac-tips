@@ -73,8 +73,6 @@ var Toast = function (_Component) {
     }
 
     Toast.prototype.componentDidMount = function componentDidMount() {
-        var _this2 = this;
-
         var _props = this.props,
             duration = _props.duration,
             destory = _props.destory,
@@ -83,15 +81,15 @@ var Toast = function (_Component) {
 
         if (duration) {
             this.timer && clearTimeout(this.timer);
-            if (type == 'success' || type == 'warning') {
-                this.timer = setTimeout(function () {
-                    destory(id);
-                }, duration);
-            } else {
-                this.timer = setTimeout(function () {
-                    _this2.hide();
-                }, duration);
-            }
+            // if(type=='success'||type=='warning'){
+            //     this.timer=setTimeout(()=>{
+            //         destory(id);
+            //     },duration)
+            // }else{
+            //     this.timer=setTimeout(()=>{
+            //         this.hide()
+            //     },duration)
+            // }
         }
     };
 
