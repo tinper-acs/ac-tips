@@ -22,7 +22,7 @@
             word-break: break-all;
             max-height: 270px;
             overflow-y: auto;
-            line-height: 2;
+            line-height: unset;
         }
         &-close{
             cursor: pointer;

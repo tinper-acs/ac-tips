@@ -23,7 +23,7 @@
       word-break: break-all;
       max-height: 270px;
       overflow-y: auto;
-      line-height: 2; }
+      line-height: unset; }
     .ac-tips-out .ac-tips-close {
       cursor: pointer;
       color: #0073e1;
