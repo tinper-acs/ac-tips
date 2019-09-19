@@ -15,7 +15,7 @@ const defaultProps = {
     duration:5000
 };
 
-class Toast extends Component {
+class Tips extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -81,7 +81,7 @@ class Toast extends Component {
     }
 };
 
-Toast.propTypes = propTypes;
-Toast.defaultProps = defaultProps;
+Tips.propTypes = propTypes;
+Tips.defaultProps = defaultProps;
 
-export default Toast;
+export default Tips;
