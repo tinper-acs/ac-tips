@@ -40,7 +40,7 @@ var AcTips = {
             duration = options.duration,
             others = _objectWithoutProperties(options, ['type', 'content', 'style', 'duration']);
 
-        duration = duration ? duration : type === 'error' ? 5 : 2;
+        duration = duration ? duration / 1000 : type === 'error' ? 5 : 2;
         if (notification == null) {
             var toast = document.createElement('div');
             _rcNotification2["default"].newInstance({

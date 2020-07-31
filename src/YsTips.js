@@ -11,7 +11,7 @@ let notification = null;
 let AcTips = {
     create:(options)=>{
         let { type='success', content, style, duration, ...others } = options;
-        duration = duration ? duration : (type === 'error' ? 5 : 2);
+        duration = duration ? duration/1000 : (type === 'error' ? 5 : 2);
         if (notification == null) {
             let toast = document.createElement('div');
             Notification.newInstance({
