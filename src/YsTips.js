@@ -12,15 +12,15 @@ let AcTips = {
     create:(options)=>{
         let { type='success', content, style, duration, ...others } = options;
         duration = duration ? duration : (type === 'error' ? 5 : 2);
-        let toast = document.createElement('div');
         if (notification == null) {
+            let toast = document.createElement('div');
             Notification.newInstance({
                 getContainer: () => toast,
                 prefixCls: 'uretail-message',
                 style,
             }, (hooksRef) => { notification = hooksRef })
+            document.body.appendChild(toast);
         }
-        document.body.appendChild(toast);
         const key = options.key || Date.now()
         let iconType = ''
         let NoticeIcon

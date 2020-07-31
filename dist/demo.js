@@ -39558,8 +39558,8 @@
 	            others = _objectWithoutProperties(options, ['type', 'content', 'style', 'duration']);
 	
 	        duration = duration ? duration : type === 'error' ? 5 : 2;
-	        var toast = document.createElement('div');
 	        if (notification == null) {
+	            var toast = document.createElement('div');
 	            _rcNotification2['default'].newInstance({
 	                getContainer: function getContainer() {
 	                    return toast;
@@ -39569,8 +39569,8 @@
 	            }, function (hooksRef) {
 	                notification = hooksRef;
 	            });
+	            document.body.appendChild(toast);
 	        }
-	        document.body.appendChild(toast);
 	        var key = options.key || Date.now();
 	        var iconType = '';
 	        var NoticeIcon = void 0;
