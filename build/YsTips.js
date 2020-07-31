@@ -24,7 +24,11 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; } /**
+                                                                                                                                                                                                                              * YS 风格 tips
+                                                                                                                                                                                                                              * Created by Yang Chenchen on July 31, 2020
+                                                                                                                                                                                                                              */
+
 
 var notification = null;
 var AcTips = {
@@ -36,14 +40,14 @@ var AcTips = {
             duration = options.duration,
             others = _objectWithoutProperties(options, ['type', 'content', 'style', 'duration']);
 
-        duration = type === 'error' ? 5 : 2;
+        duration = duration ? duration : type === 'error' ? 5 : 2;
         var toast = document.createElement('div');
         if (notification == null) {
             _rcNotification2["default"].newInstance({
                 getContainer: function getContainer() {
                     return toast;
                 },
-                prefixCls: 'uretail-notification',
+                prefixCls: 'uretail-message',
                 style: style
             }, function (hooksRef) {
                 notification = hooksRef;

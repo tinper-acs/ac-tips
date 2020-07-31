@@ -1,3 +1,7 @@
+/**
+ * YS 风格 tips
+ * Created by Yang Chenchen on July 31, 2020
+ */
 import React from 'react'
 import Icon from 'bee-icon'
 import Notification from 'rc-notification'
@@ -7,12 +11,12 @@ let notification = null;
 let AcTips = {
     create:(options)=>{
         let { type='success', content, style, duration, ...others } = options;
-        duration = type === 'error' ? 5 : 2;
+        duration = duration ? duration : (type === 'error' ? 5 : 2);
         let toast = document.createElement('div');
         if (notification == null) {
             Notification.newInstance({
                 getContainer: () => toast,
-                prefixCls: 'uretail-notification',
+                prefixCls: 'uretail-message',
                 style,
             }, (hooksRef) => { notification = hooksRef })
         }
