@@ -8,6 +8,7 @@ import Notification from 'rc-notification'
 import classnames from 'classnames'
 
 let notification = null;
+let timer = null;
 let AcTips = {
     create:(options)=>{
         let { type='success', content, style, duration, ...others } = options;
@@ -16,7 +17,7 @@ let AcTips = {
             let toast = document.createElement('div');
             Notification.newInstance({
                 getContainer: () => toast,
-                prefixCls: 'uretail-message',
+                prefixCls: 'uretail-message',//rc组件bug，增加prefixCls的时候duration无效
                 style,
             }, (hooksRef) => { notification = hooksRef })
             document.body.appendChild(toast);
@@ -53,17 +54,26 @@ let AcTips = {
             duration,
             ...others
         })
+        if(duration){
+            timer = setTimeout(()=>{
+                AcTips.destory();
+            },duration*1000)
+        }
     },
     destory:()=>{
         if (notification) {
             notification.destroy();
             notification = null;
+            timer && window.clearTimeout(timer);
+            timer = null;
         }
     },
     destoryAll() {
         if (notification) {
             notification.destroy();
             notification = null;
+            timer && window.clearTimeout(timer);
+            timer = null;
         }
     }
 }

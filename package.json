@@ -1,6 +1,6 @@
 {
  "name": "ac-tips",
- "version": "1.0.2",
+ "version": "1.0.3",
  "description": "AcTips ui component for react",
  "keywords": [
   "react",
@@ -27,7 +27,8 @@
  },
  "scripts": {
   "dev": "bee-tools run start",
-  "build": "bee-tools run build",
+  "build": "bee-tools run build && npm run build_css",
+  "build_css": "gulp build",
   "lint": "bee-tools-test run lint",
   "test": "bee-tools-test run test",
   "chrome": "bee-tools-test run chrome",
@@ -46,6 +47,17 @@
   "rc-notification": "^4.4.0"
  },
  "devDependencies": {
+  "gulp": "^4.0.2",
+  "gulp-autoprefixer": "^7.0.1",
+  "gulp-cached": "^1.1.1",
+  "gulp-concat": "^2.6.1",
+  "gulp-less": "^4.0.1",
+  "gulp-remember": "^1.0.1",
+  "gulp-sourcemaps": "^2.6.5",
+  "gulp-using": "^0.1.1",
+  "gulp-progeny": "^0.4.1",
+  "less-plugin-autoprefix": "^2.0.0",
+  "less-plugin-clean-css": "^1.5.1",
   "chai": "^3.5.0",
   "enzyme": "^2.4.1",
   "react": "15.3.2",

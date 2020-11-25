@@ -31,6 +31,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 var notification = null;
+var timer = null;
 var AcTips = {
     create: function create(options) {
         var _options$type = options.type,
@@ -47,7 +48,7 @@ var AcTips = {
                 getContainer: function getContainer() {
                     return toast;
                 },
-                prefixCls: 'uretail-message',
+                prefixCls: 'uretail-message', //rc组件bug，增加prefixCls的时候duration无效
                 style: style
             }, function (hooksRef) {
                 notification = hooksRef;
@@ -93,11 +94,18 @@ var AcTips = {
             key: key,
             duration: duration
         }, others));
+        if (duration) {
+            timer = setTimeout(function () {
+                AcTips.destory();
+            }, duration * 1000);
+        }
     },
     destory: function destory() {
         if (notification) {
             notification.destroy();
             notification = null;
+            timer && window.clearTimeout(timer);
+            timer = null;
         }
     },
     destoryAll: function destoryAll() {

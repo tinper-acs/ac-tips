@@ -1,13 +1,13 @@
-@import "/node_modules/rc-notification/assets/index.css";
+@import "../node_modules/rc-notification/assets/index.less";
 
 // ============================================
 // YS alert 类控件的样式
 // ============================================
-$info-color: #588CE9;
-$success-color: #18B681;
-$error-color: #FF5735;
-$warning-color: #FFA600;
-$shadow-color: rgba(0, 0, 0, .15);
+@info-color: #588CE9;
+@success-color: #18B681;
+@error-color: #FF5735;
+@warning-color: #FFA600;
+@shadow-color: rgba(0, 0, 0, .15);
 // 短文本提示消息框
 .uretail-message {
     position: fixed;
@@ -23,7 +23,7 @@ $shadow-color: rgba(0, 0, 0, .15);
         margin-left: 4px;
     }
     &-notice {
-        box-shadow: 0 0 10px $shadow-color;
+        box-shadow: 0 0 10px @shadow-color;
         border-radius: 4px;
         margin: 10px 0;
     }
@@ -50,7 +50,7 @@ $shadow-color: rgba(0, 0, 0, .15);
         color: #666;
         padding: 8px 12px;
         .uf {
-            color: $success-color;
+            color: @success-color;
         }
     }
     &-info {
@@ -63,7 +63,7 @@ $shadow-color: rgba(0, 0, 0, .15);
         font-size: 12px;
         padding: 8px 12px;
         .uf {
-            color: $info-color;
+            color: @info-color;
         }
     }
     &-error {
@@ -76,7 +76,7 @@ $shadow-color: rgba(0, 0, 0, .15);
         font-size: 12px;
         padding: 8px 12px;
         .uf {
-            color: $error-color;
+            color: @error-color;
         }
     }
     &-warning {
@@ -89,7 +89,7 @@ $shadow-color: rgba(0, 0, 0, .15);
         font-size: 12px;
         padding: 8px 12px;
         .uf {
-            color: $warning-color;
+            color: @warning-color;
             font-size: 22px;
         }
     }
